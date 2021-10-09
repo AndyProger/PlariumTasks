@@ -82,38 +82,30 @@ namespace PlariumTasks
 
         //номер строки, в которой находится самая длинная серия одинаковых элементов.
         // вернет -1, если такой индекс не будет найден
-        public static void FindTheLongestRow(int[,] matrix, out int indOfRow)
+        public static void FindTheLongestRow(int[,] array, out int resultIndex)
         {
-            indOfRow = -1;
-            var max = 0;
-
-            for (var i = 0; i < matrix.GetLength(0); i++)
+            var tmp = 0;
+            var kMax = -1;
+            resultIndex = -1;
+            for (var i = 0; i < array.GetLength(0); i++)
             {
-                var tmp = 0;
-
-                for (var j = 0; j < matrix.GetLength(1) - 1; j++)
+                for (var j = 0; j < array.GetLength(1) - 1; j++)
                 {
-                    if (matrix[i, j] != matrix[i, j + 1])
+                    if (array[i, j] == array[i, j + 1])
                     {
-                        continue;
+                        tmp++;
+                        if (tmp > kMax)
+                        {
+                            kMax = tmp;
+                            resultIndex = j;
+                        }
                     }
                     else
                     {
-                        tmp++;
+                        tmp = 1;
                     }
                 }
-
-                if (max >= tmp)
-                {
-                    continue;
-                }
-                else
-                {
-                    max = tmp;
-                    indOfRow = i;
-                }
             }
-
         }
 
         // количество столбцов, содержащих хотя бы один нулевой элемент.
